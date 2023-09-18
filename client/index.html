@@ -3,22 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Analyzer with ChatGPT</title>
     <link rel="stylesheet" href="css/styles.css">
-    <title>Code Analyzer</title>
 </head>
 <body>
     <header>
-        <h1>Code Analyzer</h1>
-        <p>Get feedback on your code using ChatGPT.</p>
+        <h1>Code Analyzer with ChatGPT</h1>
+        <p>Upload your ZIP file containing code. Get feedback and interact with ChatGPT for suggestions and queries.</p>
     </header>
 
-    <main>
-        <input type="file" id="fileInput" accept=".zip" style="display: none;">
-        <label for="fileInput" class="customFileInput">Upload Your Zip</label>
-        <button id="analyzeButton">Analyze Code</button>
-        <textarea id="output" readonly></textarea>
-    </main>
+    <section class="upload-section">
+        <label for="fileInput">Upload your ZIP file:</label>
+        <input type="file" id="fileInput">
+        <button id="analyzeButton">Analyze</button>
+    </section>
 
+    <section class="output-section">
+        <h2>Analysis Output:</h2>
+        <textarea id="output" rows="10"></textarea>
+    </section>
+
+    <section class="chat-section">
+        <label for="gptPrompt">Ask ChatGPT:</label>
+        <input type="text" id="gptPrompt">
+        <button id="askGPTButton">Ask</button>
+    </section>
+
+    <!-- Including JavaScript animations library (like GSAP) and the main JS script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>

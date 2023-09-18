@@ -1,49 +1,49 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const fs = require('fs');
-const path = require('path');
-const unzipper = require('unzipper');
 const fetch = require('node-fetch');
-require('dotenv').config();
+const dotenv = require('dotenv');
+const unzipper = require('unzipper');
+
+dotenv.config();
 
 const app = express();
+const PORT = process.env.PORT || 3000;
 
-// Middleware setup
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/static', express.static(path.join(__dirname, 'client')));
+app.use(express.static('client'));
+app.use(bodyParser.json({ limit: '50mb' }));
 
+// Endpoint to analyze uploaded directory (ZIP file)
 app.post('/analyze-directory', async (req, res) => {
-    // Logic to handle the uploaded zip, extract it, read files, and send to ChatGPT.
-    // For brevity, I'm not including the full details here, but it would involve
-    // extracting the ZIP, iterating over the files, and then calling ChatGPT.
-    const feedback = await getFeedbackFromChatGPT("Your code content here...");
-    res.json({ feedback });
+    const { codeZip } = req.body;
+
+    // Use unzipper to extract content from ZIP and analyze
+
+    // Mockup response after analyzing
+    res.json({ feedback: "Your code looks good, but there are areas to improve." });
 });
 
-// Define other routes, middleware, error handlers as needed...
+// Endpoint to ask ChatGPT based on user's prompt
+app.post('/ask-chatgpt', async (req, res) => {
+    const { prompt } = req.body;
 
-const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+    const apiURL = "https://api.openai.com/v1/engines/davinci/completions";
+    const headers = {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${process.env.CHATGPT_API_KEY}`
+    };
 
-async function getFeedbackFromChatGPT(codeContent) {
-    const API_KEY = process.env.API_KEY;
-    const endpoint = "https://api.openai.com/v2/engines/davinci/completions";
+    const body = JSON.stringify({ prompt: prompt, max_tokens: 150 });
 
-    const response = await fetch(endpoint, {
+    const response = await fetch(apiURL, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${API_KEY}`
-        },
-        body: JSON.stringify({
-            prompt: `Review the following code: ${codeContent}`,
-            max_tokens: 150
-        })
+        headers: headers,
+        body: body
     });
 
     const data = await response.json();
-    return data.choices[0].text.trim();
-}
+    res.json({ response: data.choices[0].text.trim() });
+});
+
+app.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`);
+});
