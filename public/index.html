@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Code Analyzer</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Code Analyzer</h1>
+        <p>Upload a zipped folder of your code to get an analysis.</p>
+        <input type="file" id="codeUpload" accept=".zip">
+        <button id="analyzeBtn">Analyze</button>
+        <textarea id="output" placeholder="Analysis results..." readonly></textarea>
+
+        <hr>
+
+        <h2>Ask ChatGPT</h2>
+        <textarea id="chatGPTPrompt" placeholder="Ask a question..."></textarea>
+        <button id="askBtn">Ask</button>
+        <textarea id="chatGPTResponse" placeholder="ChatGPT's response..." readonly></textarea>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>
