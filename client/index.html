@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Code Analyzer</title>
+</head>
+<body>
+    <header>
+        <h1>Code Analyzer</h1>
+        <p>Get feedback on your code using ChatGPT.</p>
+    </header>
+
+    <main>
+        <input type="file" id="fileInput" accept=".zip" style="display: none;">
+        <label for="fileInput" class="customFileInput">Upload Your Zip</label>
+        <button id="analyzeButton">Analyze Code</button>
+        <textarea id="output" readonly></textarea>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
